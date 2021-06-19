@@ -86,7 +86,7 @@ namespace ILang2._
 		public Dictionary<String,object> symbTable = new Dictionary<String,object>();
 		
 		
-		public ILangForm(int index,IntPtr parentHandle)
+		public ILangForm(int windowIndex,IntPtr parentHandle)
 		{
 			//
 			// The InitializeComponent() call is required for Windows Forms designer support.
@@ -102,8 +102,8 @@ namespace ILang2._
 			}
 			
 			this.parentHandle = parentHandle;
-			tempKnlName="TempKnl"+index.ToString()+".tmp";//para si creamos multiples forms de ilang no haya problemas al querer crear varios KNL nuevos a la vez
-			this.index=index;
+			tempKnlName="TempKnl"+windowIndex.ToString()+".tmp";//para si creamos multiples forms de ilang no haya problemas al querer crear varios KNL nuevos a la vez
+			this.index=windowIndex;
 			
 			loadFilesInListbox(KnlFileList);
 			//
@@ -284,12 +284,22 @@ namespace ILang2._
 	            return;
 			}
 			if(File.Exists(tempKnlName)){
+				if(SectionLister.Items.Count==0){
+					MessageBox.Show("Can not save an empty knl","Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
+					return;
+				}
+					
 				String newKnlName ;
 				if(String.IsNullOrEmpty(FileNameTextbox.Text)){
 					newKnlName = Microsoft.VisualBasic.Interaction.InputBox("Insert Knl Name","Knl Name");
 				}else{
 					newKnlName = FileNameTextbox.Text.Replace(".zip","");
 				}
+				if(String.IsNullOrEmpty(newKnlName.Trim())){
+					MessageBox.Show("Name not provided","Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
+					return;
+				}
+					
 				if(KnlFileList.Items.Contains(rutaKnlFiles+ newKnlName+".zip")){
 					MessageBox.Show("Knl with the name: " + newKnlName +", already exists","Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
 					return;
@@ -302,10 +312,10 @@ namespace ILang2._
 				SaveLight.BackColor = Color.Lime;
 				selectedKnl=newKnlName+".zip";
 				if(String.IsNullOrEmpty(knlId)){
-					MySQLReader.openDBConn();
-					knlId=MySQLReader.insertDB(selectedKnl, rutaKnlFiles, rutaKnlFiles+newKnlName+".zip");
+					//MYSQL_IMP//MySQLReader.openDBConn();
+					//MYSQL_IMP//knlId=MySQLReader.insertDB(selectedKnl, rutaKnlFiles, rutaKnlFiles+newKnlName+".zip");
 					KnlIdLabel.Text="KnlId: "+knlId;
-					MySQLReader.closeDBConn();
+					//MYSQL_IMP//MySQLReader.closeDBConn();
 				}
 			}
 		}
@@ -473,7 +483,11 @@ namespace ILang2._
 		}
 		
 		void selectKnlFile(ListBox ListWithKnls){
+			if(File.Exists(tempKnlName)){
+				File.Delete(tempKnlName);
+			}
 			if(ListWithKnls.SelectedIndex>=0){
+				SaveLight.BackColor=Color.Lime;
 				enableNewFile=false;
 				enableUnsave=false;
 				isNewKnlFile=false;
@@ -509,12 +523,12 @@ namespace ILang2._
 								StreamReader idReader = new StreamReader(idStream);
 								string id = idReader.ReadToEnd();
 								if(Int32.Parse(id) > 0){
-									MySQLReader.openDBConn();
-									knlMetadata =MySQLReader.getMetadata(id);
+									//MYSQL_IMP//MySQLReader.openDBConn();
+									//MYSQL_IMP//knlMetadata =MySQLReader.getMetadata(id);
 									knlId = id;
 									bulkMetadata();
 									KnlIdLabel.Text="KnlId: "+id;
-									MySQLReader.closeDBConn();
+									//MYSQL_IMP//MySQLReader.closeDBConn();
 								}
 								idStream.Close();
 								idArchive.Dispose();
@@ -522,12 +536,12 @@ namespace ILang2._
 							}
 						}
 						if(String.IsNullOrEmpty(knlId)){
-							MySQLReader.openDBConn();
-							knlId = MySQLReader.getKnlId(knlFilename, rutaKnlFiles, selectedKnl);
-							knlMetadata =MySQLReader.getMetadata(knlId);
+							//MYSQL_IMP//MySQLReader.openDBConn();
+							//MYSQL_IMP//knlId = MySQLReader.getKnlId(knlFilename, rutaKnlFiles, selectedKnl);
+							//MYSQL_IMP//knlMetadata =MySQLReader.getMetadata(knlId);
 							bulkMetadata();
 							KnlIdLabel.Text="KnlId: "+knlId;
-							MySQLReader.closeDBConn();
+							//MYSQL_IMP//MySQLReader.closeDBConn();
 						}
 						archive.Dispose();
 						zipStream.Close();
@@ -584,9 +598,9 @@ namespace ILang2._
 		void
 			TestButtonClick(object sender, EventArgs e)
 		{
-			MySQLReader.openDBConn();
-			MySQLReader.queryDB("select * from knldata");
-			MySQLReader.closeDBConn();
+			//MYSQL_IMP//MySQLReader.openDBConn();
+			//MYSQL_IMP//MySQLReader.queryDB("select * from knldata");
+			//MYSQL_IMP//MySQLReader.closeDBConn();
 		}
 		
 		
@@ -727,19 +741,19 @@ namespace ILang2._
 		           }
 		           
 		        //buscar el metadata en la db
-		        MySQLReader.openDBConn();
-		        string metametadataId = MySQLReader.getMetaMetadataId(metadata);
+		        //MYSQL_IMP//MySQLReader.openDBConn();
+		        //MYSQL_IMP//string metametadataId = MySQLReader.getMetaMetadataId(metadata);
 		        //sino existe agregarlo y retornar el ID
-		        if(String.IsNullOrEmpty(metametadataId)){
-		        	metametadataId = MySQLReader.insertMetaMetadataDB(metadata);
-		        }
+		        //MYSQL_IMP//if(String.IsNullOrEmpty(metametadataId)){
+		        	//MYSQL_IMP//metametadataId = MySQLReader.insertMetaMetadataDB(metadata);
+		        //MYSQL_IMP//}
 		        //insertar el nuevo metadato
-		        if(!MySQLReader.insertMetadataDB(metametadataId, metadata, rutaKnlFiles, selectedKnl, knlId)){
-		        	MessageBox.Show("No fue posible insertar metadato");
-		        }else{
-		        	MetadataListbox.Items.Add(MetadataTextbox.Text);
-		        }
-		        MySQLReader.closeDBConn();
+		        //MYSQL_IMP//if(!MySQLReader.insertMetadataDB(metametadataId, metadata, rutaKnlFiles, selectedKnl, knlId)){
+		        	//MYSQL_IMP//MessageBox.Show("No fue posible insertar metadato");
+		        //MYSQL_IMP//}else{
+		        	//MYSQL_IMP//MetadataListbox.Items.Add(MetadataTextbox.Text);
+		        //MYSQL_IMP//}
+		        //MYSQL_IMP//MySQLReader.closeDBConn();
 		        MetadataTextbox.Text="";
 		    }
 		}
@@ -752,6 +766,11 @@ namespace ILang2._
 					return true;
 			}
 			return false;
+		}
+		
+		void MetadataToolStripMenuItemClick(object sender, EventArgs e)
+		{
+			MetadataBox.Visible=!MetadataBox.Visible;
 		}
 	}
 }
