@@ -69,6 +69,7 @@ namespace ILang2._
 		public String rutaKnlFiles="data\\";
 		public String rootKnlData = "data\\";
 		public String tempDirKnl ="data\\TempKnlsFiles\\";
+		public bool isRelationViewer = false;
 		
 		public String knlFilename;
 		public String selectedKnl;
@@ -133,6 +134,17 @@ namespace ILang2._
 			
 		}
 		
+		//TODO create a util library with these methods
+		public static string array2Text(ListBox.ObjectCollection theList){
+			string toRet ="";
+			for(int i=0; i<theList.Count; i++){
+				toRet=toRet+theList[i].ToString()+"\n";
+			}
+			toRet.Substring(0,toRet.Length-1);
+			return toRet;
+		}
+		
+		
 		void SaveSectionClick(object sender, EventArgs e)
 		{
 			//Guardar la seccion seleccionada en la lista de secciones
@@ -152,7 +164,10 @@ namespace ILang2._
 				Stream zipStreamNew = entryNew.Open();
 				var stream = new MemoryStream();
 				var writer = new StreamWriter(stream);
-				writer.Write(SectionsTextbox.Text);
+				if(isRelationViewer)
+					writer.Write(ILangForm.array2Text(RelationLister.Items));
+				else
+					writer.Write(SectionsTextbox.Text);
 				writer.Flush();
 				stream.Position = 0;
 				stream.CopyTo(zipStreamNew);
@@ -255,13 +270,24 @@ namespace ILang2._
 				String fileExt = selectedFileSection.Substring(selectedFileSection.LastIndexOf('.'));
 				//TODO ponerele un switch para saber el tipo de archivo
 				//switch(
+				isRelationViewer=(fileExt == ".rel")?true:false;
+				RelationLister.Items.Clear();
 				FileInfo zipFile = new FileInfo(selectedKnl);
 				FileStream zipStream = zipFile.OpenRead();
 				ZipArchive archive = new ZipArchive(zipStream, ZipArchiveMode.Read);
 				ZipArchiveEntry entry = archive.GetEntry(selectedFileSection);
 				Stream stream = entry.Open();
 				StreamReader reader = new StreamReader(stream);
-				SectionsTextbox.Text = reader.ReadToEnd();
+				if(isRelationViewer){
+					SectionsTextbox.Visible=false;
+					RelationLister.Visible=true;
+					RelationLister.Items.AddRange(reader.ReadToEnd().Split('\n'));
+				}
+				else{
+					RelationLister.Visible=false;
+					SectionsTextbox.Visible=true;
+					SectionsTextbox.Text = reader.ReadToEnd();
+				}
 				
 				stream.Close();
 				archive.Dispose();
@@ -483,10 +509,14 @@ namespace ILang2._
 		}
 		
 		void selectKnlFile(ListBox ListWithKnls){
+			if(isRelationViewer){
+				return;
+			}
 			if(File.Exists(tempKnlName)){
 				File.Delete(tempKnlName);
 			}
 			if(ListWithKnls.SelectedIndex>=0){
+				RelationLister.Items.Clear();
 				SaveLight.BackColor=Color.Lime;
 				enableNewFile=false;
 				enableUnsave=false;
@@ -646,6 +676,7 @@ namespace ILang2._
 		void VarsToolStripMenuItemClick(object sender, EventArgs e)
 		{
 			VarsBox.Visible=!VarsBox.Visible;
+			VarsBox.BringToFront();
 		}
 		void SectionListerDoubleClick(object sender, EventArgs e)
 		{
@@ -771,6 +802,21 @@ namespace ILang2._
 		void MetadataToolStripMenuItemClick(object sender, EventArgs e)
 		{
 			MetadataBox.Visible=!MetadataBox.Visible;
+			MetadataBox.BringToFront();
+		}
+		void FilteredKnlListBoxDoubleClick(object sender, EventArgs e)
+		{
+			if(isRelationViewer){
+				RelationLister.Items.Add(rutaKnlFiles+FilteredKnlListBox.Items[FilteredKnlListBox.SelectedIndex]);
+				return;
+			}
+		}
+		void KnlFileListDoubleClick(object sender, EventArgs e)
+		{
+			if(isRelationViewer){
+				RelationLister.Items.Add(rutaKnlFiles+KnlFileList.Items[KnlFileList.SelectedIndex]);
+				return;
+			}
 		}
 	}
 }
