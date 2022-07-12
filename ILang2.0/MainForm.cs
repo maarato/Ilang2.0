@@ -25,6 +25,7 @@ namespace ILang2._
 	public partial class MainForm : Form
 	{
 		int iLangCounter=1;
+		public static MainForm mainFormSigleton; 
 		public MainForm()
 		{
 			//
@@ -32,13 +33,21 @@ namespace ILang2._
 			//
 			InitializeComponent();
 			deleteTempFiles();
-			Form form = new ILangForm(iLangCounter, this.Handle);
-			form.MdiParent = this;
+			MainForm.mainFormSigleton = this;
+			Form form = new ILangForm(iLangCounter, MainForm.mainFormSigleton.Handle, "");
+			form.MdiParent = MainForm.mainFormSigleton;
 			//form.Dock=DockStyle.Fill; //para ajustar al 
 			form.Show();
 			//
 			// TODO: Add constructor code after the InitializeComponent() call.
 			//
+		}
+		
+		public void callNewIlang(string fileToOpen){
+			Form form = new ILangForm(iLangCounter, this.Handle, fileToOpen);
+			form.MdiParent = MainForm.mainFormSigleton;
+			//form.Dock=DockStyle.Fill; //para ajustar al 
+			form.Show();
 		}
 		
 		public void deleteTempFiles(){
@@ -58,8 +67,8 @@ namespace ILang2._
 		
 		void ElFormToolStripMenuItemClick(object sender, EventArgs e)
 		{
-			Form form = new ILangForm(iLangCounter, this.Handle);
-			form.MdiParent = this;
+			Form form = new ILangForm(iLangCounter, MainForm.mainFormSigleton.Handle, "");
+			form.MdiParent = MainForm.mainFormSigleton;
 			//form.Dock=DockStyle.Fill; //para ajustar al 
 			form.Show();						
 		}
@@ -86,8 +95,8 @@ namespace ILang2._
 			    }
 			}
 			
-			SubjugatorCore newCore = new SubjugatorCore(socketMaster, this.Handle);
-			newCore.MdiParent = this;
+			SubjugatorCore newCore = new SubjugatorCore(socketMaster, MainForm.mainFormSigleton.Handle);
+			newCore.MdiParent = MainForm.mainFormSigleton;
 			newCore.Show();
 		}
 		
@@ -102,7 +111,7 @@ namespace ILang2._
 			myProceso.Start();
             // Sleep the thread in order to let the Notepad start completely
             Thread.Sleep(100);
-            SetParent(myProceso.MainWindowHandle, this.Handle);
+            SetParent(myProceso.MainWindowHandle, MainForm.mainFormSigleton.Handle);
 		}
 	}
 }

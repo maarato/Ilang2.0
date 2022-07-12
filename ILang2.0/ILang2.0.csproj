@@ -76,6 +76,7 @@
     <Compile Include="ILangForm.Designer.cs">
       <DependentUpon>ILangForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ILangHTMLTranspiler.cs" />
     <Compile Include="knlClass.cs" />
     <Compile Include="MainForm.cs" />
     <Compile Include="MainForm.Designer.cs">

@@ -38,7 +38,9 @@ namespace ILang2._
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ILangForm));
 			this.KnlEditor = new System.Windows.Forms.GroupBox();
-			this.RelationLister = new System.Windows.Forms.ListBox();
+			this.RelationsLister = new System.Windows.Forms.ListBox();
+			this.ReferenceModeCheckbox = new System.Windows.Forms.CheckBox();
+			this.IlangFileTypeSelector = new System.Windows.Forms.ComboBox();
 			this.SaveClipboardDataButton = new System.Windows.Forms.Button();
 			this.brTst = new System.Windows.Forms.Button();
 			this.TestButton = new System.Windows.Forms.Button();
@@ -63,9 +65,13 @@ namespace ILang2._
 			this.runSomethingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.sectionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.renameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.transpileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.insertBase64ImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.boxesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.varsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.metadataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.contextsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.createNewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.KnlFileList = new System.Windows.Forms.ListBox();
 			this.knlFilterText = new System.Windows.Forms.TextBox();
 			this.FilteredKnlListBox = new System.Windows.Forms.ListBox();
@@ -86,7 +92,9 @@ namespace ILang2._
 			// 
 			// KnlEditor
 			// 
-			this.KnlEditor.Controls.Add(this.RelationLister);
+			this.KnlEditor.Controls.Add(this.RelationsLister);
+			this.KnlEditor.Controls.Add(this.ReferenceModeCheckbox);
+			this.KnlEditor.Controls.Add(this.IlangFileTypeSelector);
 			this.KnlEditor.Controls.Add(this.SaveClipboardDataButton);
 			this.KnlEditor.Controls.Add(this.brTst);
 			this.KnlEditor.Controls.Add(this.TestButton);
@@ -112,13 +120,41 @@ namespace ILang2._
 			this.KnlEditor.Text = "Knl Editor";
 			this.KnlEditor.Visible = false;
 			// 
-			// RelationLister
+			// RelationsLister
 			// 
-			this.RelationLister.FormattingEnabled = true;
-			this.RelationLister.Location = new System.Drawing.Point(315, 198);
-			this.RelationLister.Name = "RelationLister";
-			this.RelationLister.Size = new System.Drawing.Size(323, 355);
-			this.RelationLister.TabIndex = 19;
+			this.RelationsLister.FormattingEnabled = true;
+			this.RelationsLister.Location = new System.Drawing.Point(317, 200);
+			this.RelationsLister.Margin = new System.Windows.Forms.Padding(2);
+			this.RelationsLister.Name = "RelationsLister";
+			this.RelationsLister.Size = new System.Drawing.Size(323, 355);
+			this.RelationsLister.TabIndex = 21;
+			this.RelationsLister.TabStop = false;
+			this.RelationsLister.Visible = false;
+			this.RelationsLister.SelectedIndexChanged += new System.EventHandler(this.RelationsListerSelectedIndexChanged);
+			this.RelationsLister.DoubleClick += new System.EventHandler(this.RelationsListerDoubleClick);
+			this.RelationsLister.KeyUp += new System.Windows.Forms.KeyEventHandler(this.RelationsListerKeyUp);
+			// 
+			// ReferenceModeCheckbox
+			// 
+			this.ReferenceModeCheckbox.Location = new System.Drawing.Point(554, 44);
+			this.ReferenceModeCheckbox.Margin = new System.Windows.Forms.Padding(2);
+			this.ReferenceModeCheckbox.Name = "ReferenceModeCheckbox";
+			this.ReferenceModeCheckbox.Size = new System.Drawing.Size(83, 18);
+			this.ReferenceModeCheckbox.TabIndex = 20;
+			this.ReferenceModeCheckbox.Text = "Reference";
+			this.ReferenceModeCheckbox.UseVisualStyleBackColor = true;
+			this.ReferenceModeCheckbox.CheckedChanged += new System.EventHandler(this.ReferenceModeCheckboxCheckedChanged);
+			// 
+			// IlangFileTypeSelector
+			// 
+			this.IlangFileTypeSelector.FormattingEnabled = true;
+			this.IlangFileTypeSelector.Location = new System.Drawing.Point(411, 44);
+			this.IlangFileTypeSelector.Margin = new System.Windows.Forms.Padding(2);
+			this.IlangFileTypeSelector.Name = "IlangFileTypeSelector";
+			this.IlangFileTypeSelector.Size = new System.Drawing.Size(136, 21);
+			this.IlangFileTypeSelector.TabIndex = 19;
+			this.IlangFileTypeSelector.Text = "Ilang File Type";
+			this.IlangFileTypeSelector.SelectedIndexChanged += new System.EventHandler(this.IlangFileTypeSelectorSelectedIndexChanged);
 			// 
 			// SaveClipboardDataButton
 			// 
@@ -132,22 +168,24 @@ namespace ILang2._
 			// 
 			// brTst
 			// 
-			this.brTst.Location = new System.Drawing.Point(565, 43);
+			this.brTst.Location = new System.Drawing.Point(552, 19);
 			this.brTst.Name = "brTst";
-			this.brTst.Size = new System.Drawing.Size(31, 19);
+			this.brTst.Size = new System.Drawing.Size(31, 20);
 			this.brTst.TabIndex = 17;
 			this.brTst.Text = "button1";
 			this.brTst.UseVisualStyleBackColor = true;
+			this.brTst.Visible = false;
 			this.brTst.Click += new System.EventHandler(this.BrTstClick);
 			// 
 			// TestButton
 			// 
-			this.TestButton.Location = new System.Drawing.Point(565, 19);
+			this.TestButton.Location = new System.Drawing.Point(551, 17);
 			this.TestButton.Name = "TestButton";
 			this.TestButton.Size = new System.Drawing.Size(32, 19);
 			this.TestButton.TabIndex = 16;
 			this.TestButton.Text = "tst";
 			this.TestButton.UseVisualStyleBackColor = true;
+			this.TestButton.Visible = false;
 			this.TestButton.Click += new System.EventHandler(this.TestButtonClick);
 			// 
 			// SaveLight
@@ -180,6 +218,7 @@ namespace ILang2._
 			// 
 			// RemoveSection
 			// 
+			this.RemoveSection.Enabled = false;
 			this.RemoveSection.Location = new System.Drawing.Point(581, 148);
 			this.RemoveSection.Name = "RemoveSection";
 			this.RemoveSection.Size = new System.Drawing.Size(56, 20);
@@ -190,6 +229,7 @@ namespace ILang2._
 			// 
 			// RenameSection
 			// 
+			this.RenameSection.Enabled = false;
 			this.RenameSection.Location = new System.Drawing.Point(581, 122);
 			this.RenameSection.Name = "RenameSection";
 			this.RenameSection.Size = new System.Drawing.Size(56, 20);
@@ -210,6 +250,7 @@ namespace ILang2._
 			// 
 			// SaveSection
 			// 
+			this.SaveSection.Enabled = false;
 			this.SaveSection.Location = new System.Drawing.Point(581, 96);
 			this.SaveSection.Name = "SaveSection";
 			this.SaveSection.Size = new System.Drawing.Size(56, 20);
@@ -230,6 +271,7 @@ namespace ILang2._
 			this.SectionLister.DragDrop += new System.Windows.Forms.DragEventHandler(this.SectionListerDragDrop);
 			this.SectionLister.DragEnter += new System.Windows.Forms.DragEventHandler(this.SectionListerDragEnter);
 			this.SectionLister.DoubleClick += new System.EventHandler(this.SectionListerDoubleClick);
+			this.SectionLister.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SectionListerKeyUp);
 			// 
 			// label1
 			// 
@@ -241,6 +283,7 @@ namespace ILang2._
 			// 
 			// SaveKnlBtn
 			// 
+			this.SaveKnlBtn.Enabled = false;
 			this.SaveKnlBtn.Location = new System.Drawing.Point(411, 19);
 			this.SaveKnlBtn.Name = "SaveKnlBtn";
 			this.SaveKnlBtn.Size = new System.Drawing.Size(43, 20);
@@ -269,18 +312,23 @@ namespace ILang2._
 			// SectionsTextbox
 			// 
 			this.SectionsTextbox.Location = new System.Drawing.Point(315, 200);
+			this.SectionsTextbox.MaxLength = 128000;
 			this.SectionsTextbox.Multiline = true;
 			this.SectionsTextbox.Name = "SectionsTextbox";
 			this.SectionsTextbox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
 			this.SectionsTextbox.Size = new System.Drawing.Size(324, 358);
 			this.SectionsTextbox.TabIndex = 2;
+			this.SectionsTextbox.TabStop = false;
 			this.SectionsTextbox.WordWrap = false;
 			this.SectionsTextbox.Click += new System.EventHandler(this.SectionsTextboxClick);
 			this.SectionsTextbox.TextChanged += new System.EventHandler(this.SectionsTextboxTextChanged);
+			this.SectionsTextbox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.SectionsTextboxKeyPress);
+			this.SectionsTextbox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SectionsTextboxKeyUp);
 			// 
 			// IlangTextbox
 			// 
 			this.IlangTextbox.Location = new System.Drawing.Point(10, 70);
+			this.IlangTextbox.MaxLength = 128000;
 			this.IlangTextbox.Multiline = true;
 			this.IlangTextbox.Name = "IlangTextbox";
 			this.IlangTextbox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
@@ -293,9 +341,10 @@ namespace ILang2._
 			// menuStrip1
 			// 
 			this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			this.funcionesToolStripMenuItem,
-			this.sectionsToolStripMenuItem,
-			this.boxesToolStripMenuItem});
+									this.funcionesToolStripMenuItem,
+									this.sectionsToolStripMenuItem,
+									this.boxesToolStripMenuItem,
+									this.contextsToolStripMenuItem});
 			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip1.Name = "menuStrip1";
 			this.menuStrip1.Size = new System.Drawing.Size(967, 24);
@@ -306,9 +355,9 @@ namespace ILang2._
 			// funcionesToolStripMenuItem
 			// 
 			this.funcionesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			this.editorToolStripMenuItem,
-			this.runILangToolStripMenuItem,
-			this.runSomethingToolStripMenuItem});
+									this.editorToolStripMenuItem,
+									this.runILangToolStripMenuItem,
+									this.runSomethingToolStripMenuItem});
 			this.funcionesToolStripMenuItem.Name = "funcionesToolStripMenuItem";
 			this.funcionesToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
 			this.funcionesToolStripMenuItem.Text = "Functions";
@@ -340,7 +389,9 @@ namespace ILang2._
 			// sectionsToolStripMenuItem
 			// 
 			this.sectionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			this.renameToolStripMenuItem});
+									this.renameToolStripMenuItem,
+									this.transpileToolStripMenuItem,
+									this.insertBase64ImageToolStripMenuItem});
 			this.sectionsToolStripMenuItem.Name = "sectionsToolStripMenuItem";
 			this.sectionsToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
 			this.sectionsToolStripMenuItem.Text = "Sections";
@@ -349,33 +400,63 @@ namespace ILang2._
 			// 
 			this.renameToolStripMenuItem.Name = "renameToolStripMenuItem";
 			this.renameToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F2)));
-			this.renameToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+			this.renameToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
 			this.renameToolStripMenuItem.Text = "Rename";
 			this.renameToolStripMenuItem.Click += new System.EventHandler(this.RenameToolStripMenuItemClick);
+			// 
+			// transpileToolStripMenuItem
+			// 
+			this.transpileToolStripMenuItem.Name = "transpileToolStripMenuItem";
+			this.transpileToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.T)));
+			this.transpileToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
+			this.transpileToolStripMenuItem.Text = "Transpile";
+			this.transpileToolStripMenuItem.Click += new System.EventHandler(this.TranspileToolStripMenuItemClick);
+			// 
+			// insertBase64ImageToolStripMenuItem
+			// 
+			this.insertBase64ImageToolStripMenuItem.Name = "insertBase64ImageToolStripMenuItem";
+			this.insertBase64ImageToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
+			this.insertBase64ImageToolStripMenuItem.Text = "Insert base64 image";
+			this.insertBase64ImageToolStripMenuItem.Click += new System.EventHandler(this.InsertBase64ImageToolStripMenuItemClick);
 			// 
 			// boxesToolStripMenuItem
 			// 
 			this.boxesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			this.varsToolStripMenuItem,
-			this.metadataToolStripMenuItem});
+									this.varsToolStripMenuItem,
+									this.metadataToolStripMenuItem});
 			this.boxesToolStripMenuItem.Name = "boxesToolStripMenuItem";
-			this.boxesToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
+			this.boxesToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
 			this.boxesToolStripMenuItem.Text = "Boxes";
 			// 
 			// varsToolStripMenuItem
 			// 
 			this.varsToolStripMenuItem.Name = "varsToolStripMenuItem";
 			this.varsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
-			this.varsToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+			this.varsToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
 			this.varsToolStripMenuItem.Text = "Vars";
 			this.varsToolStripMenuItem.Click += new System.EventHandler(this.VarsToolStripMenuItemClick);
 			// 
 			// metadataToolStripMenuItem
 			// 
 			this.metadataToolStripMenuItem.Name = "metadataToolStripMenuItem";
-			this.metadataToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+			this.metadataToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
 			this.metadataToolStripMenuItem.Text = "Metadata";
 			this.metadataToolStripMenuItem.Click += new System.EventHandler(this.MetadataToolStripMenuItemClick);
+			// 
+			// contextsToolStripMenuItem
+			// 
+			this.contextsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+									this.createNewToolStripMenuItem});
+			this.contextsToolStripMenuItem.Name = "contextsToolStripMenuItem";
+			this.contextsToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
+			this.contextsToolStripMenuItem.Text = "Contexts";
+			// 
+			// createNewToolStripMenuItem
+			// 
+			this.createNewToolStripMenuItem.Name = "createNewToolStripMenuItem";
+			this.createNewToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+			this.createNewToolStripMenuItem.Text = "Create new";
+			this.createNewToolStripMenuItem.Click += new System.EventHandler(this.CreateNewToolStripMenuItemClick);
 			// 
 			// KnlFileList
 			// 
@@ -385,7 +466,7 @@ namespace ILang2._
 			this.KnlFileList.Size = new System.Drawing.Size(303, 498);
 			this.KnlFileList.TabIndex = 2;
 			this.KnlFileList.SelectedIndexChanged += new System.EventHandler(this.ListBox1SelectedIndexChanged);
-			this.KnlFileList.DoubleClick += new System.EventHandler(this.KnlFileListDoubleClick);
+			this.KnlFileList.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.KnlFileListMouseDoubleClick);
 			// 
 			// knlFilterText
 			// 
@@ -398,7 +479,7 @@ namespace ILang2._
 			// FilteredKnlListBox
 			// 
 			this.FilteredKnlListBox.FormattingEnabled = true;
-			this.FilteredKnlListBox.Location = new System.Drawing.Point(653, 87);
+			this.FilteredKnlListBox.Location = new System.Drawing.Point(652, 86);
 			this.FilteredKnlListBox.Name = "FilteredKnlListBox";
 			this.FilteredKnlListBox.Size = new System.Drawing.Size(302, 498);
 			this.FilteredKnlListBox.TabIndex = 4;
@@ -520,8 +601,14 @@ namespace ILang2._
 			this.MetadataBox.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
-
 		}
+		private System.Windows.Forms.ToolStripMenuItem insertBase64ImageToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem transpileToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem createNewToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem contextsToolStripMenuItem;
+		private System.Windows.Forms.ListBox RelationsLister;
+		private System.Windows.Forms.CheckBox ReferenceModeCheckbox;
+		private System.Windows.Forms.ComboBox IlangFileTypeSelector;
 		private System.Windows.Forms.ToolStripMenuItem metadataToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem runSomethingToolStripMenuItem;
 		private System.Windows.Forms.ListBox varsListBox;
@@ -562,6 +649,5 @@ namespace ILang2._
 		private System.Windows.Forms.Label KnlIdLabel;
 		private System.Windows.Forms.ListBox MetadataListbox;
 		private System.Windows.Forms.TextBox MetadataTextbox;
-		private System.Windows.Forms.ListBox RelationLister;
 	}
 }

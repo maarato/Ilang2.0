@@ -405,14 +405,14 @@ namespace ILang2._
 						if(numOfInstance>0){
 							fileName=fileName+numOfInstance;
 						}
-						process.StartInfo = new ProcessStartInfo("pyt",fileName);
+						process.StartInfo = new ProcessStartInfo("python",fileName);
 						break;
 					case ".pl":
 						numOfInstance=digerirArchivo(fileName, isFlowRunning);
 						if(numOfInstance>0){
 							fileName=fileName+numOfInstance;
 						}
-						process.StartInfo = new ProcessStartInfo("\"E:\\Proyectos\\Analizador Sintactico\\PerlPortable\\Perl\\bin\\perl.exe\"",fileName);
+						process.StartInfo = new ProcessStartInfo("\"G:\\Proyectos\\Analizador Sintactico\\PerlPortable\\Perl\\bin\\perl.exe\"",fileName);
 						break;
 					case ".exe":
 						process.StartInfo = new ProcessStartInfo(fileName);
@@ -482,6 +482,7 @@ namespace ILang2._
             escrito.Close();
             return true;
 		}
+		
 		
 		public object[] getArgsFromLine(string line){
 			
