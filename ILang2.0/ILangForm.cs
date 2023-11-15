@@ -679,8 +679,21 @@ namespace ILang2._
 							MessageBox.Show("Desconocido o la ruta de la referencia esta incompleta","Text");
 							break;
 					}
+					this.loadImageInPictureBox(pictureBox2);
 				}
 			}
+		}
+		void loadImageInPictureBox(PictureBox elPictureBox){
+			if(SectionLister.Items.Contains("default.jpg")){
+				ILangWebBrowser.Visible = false;
+				elPictureBox.Visible = true;
+				elPictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+				elPictureBox.Image = this.getImageFromFileBase64("default.jpg");
+			}else{
+				ILangWebBrowser.Visible = true;
+				elPictureBox.Visible = false;
+			}
+
 		}
 		void bulkMetadata(){
 			if(knlMetadata == null)
@@ -1120,7 +1133,7 @@ namespace ILang2._
             return true;
 		}
 		
-		public string getImageFromFileBase64(string imageName){
+		public Image getImageFromFileBase64(string imageName){
 			if(SectionLister.Items.Contains(imageName)){
 				//Image imageToConvert = 
 				
@@ -1134,25 +1147,44 @@ namespace ILang2._
 					if(File.Exists(outputFile)){
 						File.Delete(outputFile);
 					}
-					entry.ExtractToFile(outputFile);
+					//entry.ExtractToFile(outputFile);
+					byte[] data = ReadFully(entry.Open());
+					
 					archive.Dispose();
 					zipStream.Close();
-					Image image = new Bitmap(outputFile);
-					using (MemoryStream ms = new MemoryStream())
-			        {
-			            image.Save(ms, image.RawFormat);
-			            return Convert.ToBase64String(ms.ToArray());
-			        }
+  					
+					//Image image = new Bitmap(outputFile);
+					MemoryStream ms = new MemoryStream(data);
+			        return Image.FromStream(ms);
 					
 				}catch(Exception exept){
 					MessageBox.Show(exept.Message);
 				}
 				
 			}
-			return "";
+			return null;
+		}
+		
+		public static byte[] ReadFully(Stream input)
+		{
+		    byte[] buffer = new byte[16*1024];
+		    using (MemoryStream ms = new MemoryStream())
+		    {
+		        int read;
+		        while ((read = input.Read(buffer, 0, buffer.Length)) > 0)
+		        {
+		            ms.Write(buffer, 0, read);
+		        }
+		        return ms.ToArray();
+		    }
 		}
 			
 		void InsertBase64ImageToolStripMenuItemClick(object sender, EventArgs e)
+		{
+			
+		}
+		
+		void PictureBox1Click(object sender, EventArgs e)
 		{
 			
 		}

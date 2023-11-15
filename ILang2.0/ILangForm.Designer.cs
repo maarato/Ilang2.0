@@ -58,6 +58,7 @@ namespace ILang2._
 			this.FileNameTextbox = new System.Windows.Forms.TextBox();
 			this.SectionsTextbox = new System.Windows.Forms.TextBox();
 			this.IlangTextbox = new System.Windows.Forms.TextBox();
+			this.pictureBox1 = new System.Windows.Forms.PictureBox();
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
 			this.funcionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.editorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -84,10 +85,13 @@ namespace ILang2._
 			this.KnlIdLabel = new System.Windows.Forms.Label();
 			this.MetadataListbox = new System.Windows.Forms.ListBox();
 			this.MetadataTextbox = new System.Windows.Forms.TextBox();
+			this.pictureBox2 = new System.Windows.Forms.PictureBox();
 			this.KnlEditor.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			this.menuStrip1.SuspendLayout();
 			this.VarsBox.SuspendLayout();
 			this.MetadataBox.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// KnlEditor
@@ -112,7 +116,7 @@ namespace ILang2._
 			this.KnlEditor.Controls.Add(this.FileNameTextbox);
 			this.KnlEditor.Controls.Add(this.SectionsTextbox);
 			this.KnlEditor.Controls.Add(this.IlangTextbox);
-			this.KnlEditor.Location = new System.Drawing.Point(1, 27);
+			this.KnlEditor.Location = new System.Drawing.Point(1, 35);
 			this.KnlEditor.Name = "KnlEditor";
 			this.KnlEditor.Size = new System.Drawing.Size(645, 571);
 			this.KnlEditor.TabIndex = 0;
@@ -338,6 +342,15 @@ namespace ILang2._
 			this.IlangTextbox.Click += new System.EventHandler(this.IlangTextboxClick);
 			this.IlangTextbox.TextChanged += new System.EventHandler(this.IlangTextboxTextChanged);
 			// 
+			// pictureBox1
+			// 
+			this.pictureBox1.Location = new System.Drawing.Point(-634, -31);
+			this.pictureBox1.Name = "pictureBox1";
+			this.pictureBox1.Size = new System.Drawing.Size(634, 558);
+			this.pictureBox1.TabIndex = 22;
+			this.pictureBox1.TabStop = false;
+			this.pictureBox1.Click += new System.EventHandler(this.PictureBox1Click);
+			// 
 			// menuStrip1
 			// 
 			this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -347,7 +360,7 @@ namespace ILang2._
 									this.contextsToolStripMenuItem});
 			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip1.Name = "menuStrip1";
-			this.menuStrip1.Size = new System.Drawing.Size(967, 24);
+			this.menuStrip1.Size = new System.Drawing.Size(958, 24);
 			this.menuStrip1.TabIndex = 1;
 			this.menuStrip1.Text = "menuStrip1";
 			this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.MenuStrip1ItemClicked);
@@ -425,21 +438,21 @@ namespace ILang2._
 									this.varsToolStripMenuItem,
 									this.metadataToolStripMenuItem});
 			this.boxesToolStripMenuItem.Name = "boxesToolStripMenuItem";
-			this.boxesToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
+			this.boxesToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
 			this.boxesToolStripMenuItem.Text = "Boxes";
 			// 
 			// varsToolStripMenuItem
 			// 
 			this.varsToolStripMenuItem.Name = "varsToolStripMenuItem";
 			this.varsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
-			this.varsToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+			this.varsToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
 			this.varsToolStripMenuItem.Text = "Vars";
 			this.varsToolStripMenuItem.Click += new System.EventHandler(this.VarsToolStripMenuItemClick);
 			// 
 			// metadataToolStripMenuItem
 			// 
 			this.metadataToolStripMenuItem.Name = "metadataToolStripMenuItem";
-			this.metadataToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+			this.metadataToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
 			this.metadataToolStripMenuItem.Text = "Metadata";
 			this.metadataToolStripMenuItem.Click += new System.EventHandler(this.MetadataToolStripMenuItemClick);
 			// 
@@ -448,7 +461,7 @@ namespace ILang2._
 			this.contextsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
 									this.createNewToolStripMenuItem});
 			this.contextsToolStripMenuItem.Name = "contextsToolStripMenuItem";
-			this.contextsToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
+			this.contextsToolStripMenuItem.Size = new System.Drawing.Size(66, 20);
 			this.contextsToolStripMenuItem.Text = "Contexts";
 			// 
 			// createNewToolStripMenuItem
@@ -463,7 +476,7 @@ namespace ILang2._
 			this.KnlFileList.FormattingEnabled = true;
 			this.KnlFileList.Location = new System.Drawing.Point(652, 86);
 			this.KnlFileList.Name = "KnlFileList";
-			this.KnlFileList.Size = new System.Drawing.Size(303, 498);
+			this.KnlFileList.Size = new System.Drawing.Size(303, 524);
 			this.KnlFileList.TabIndex = 2;
 			this.KnlFileList.SelectedIndexChanged += new System.EventHandler(this.ListBox1SelectedIndexChanged);
 			this.KnlFileList.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.KnlFileListMouseDoubleClick);
@@ -481,7 +494,7 @@ namespace ILang2._
 			this.FilteredKnlListBox.FormattingEnabled = true;
 			this.FilteredKnlListBox.Location = new System.Drawing.Point(652, 86);
 			this.FilteredKnlListBox.Name = "FilteredKnlListBox";
-			this.FilteredKnlListBox.Size = new System.Drawing.Size(302, 498);
+			this.FilteredKnlListBox.Size = new System.Drawing.Size(302, 524);
 			this.FilteredKnlListBox.TabIndex = 4;
 			this.FilteredKnlListBox.Visible = false;
 			this.FilteredKnlListBox.SelectedIndexChanged += new System.EventHandler(this.FilteredKnlListBoxSelectedIndexChanged);
@@ -489,7 +502,7 @@ namespace ILang2._
 			// 
 			// ILangWebBrowser
 			// 
-			this.ILangWebBrowser.Location = new System.Drawing.Point(0, 27);
+			this.ILangWebBrowser.Location = new System.Drawing.Point(0, 35);
 			this.ILangWebBrowser.MinimumSize = new System.Drawing.Size(20, 20);
 			this.ILangWebBrowser.Name = "ILangWebBrowser";
 			this.ILangWebBrowser.Size = new System.Drawing.Size(646, 557);
@@ -541,6 +554,7 @@ namespace ILang2._
 			this.MetadataBox.Controls.Add(this.KnlIdLabel);
 			this.MetadataBox.Controls.Add(this.MetadataListbox);
 			this.MetadataBox.Controls.Add(this.MetadataTextbox);
+			this.MetadataBox.Controls.Add(this.pictureBox1);
 			this.MetadataBox.Location = new System.Drawing.Point(646, 58);
 			this.MetadataBox.Name = "MetadataBox";
 			this.MetadataBox.Size = new System.Drawing.Size(148, 286);
@@ -573,19 +587,28 @@ namespace ILang2._
 			this.MetadataTextbox.TabIndex = 0;
 			this.MetadataTextbox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.MetadataTextboxKeyPress);
 			// 
+			// pictureBox2
+			// 
+			this.pictureBox2.Location = new System.Drawing.Point(2, 35);
+			this.pictureBox2.Name = "pictureBox2";
+			this.pictureBox2.Size = new System.Drawing.Size(644, 571);
+			this.pictureBox2.TabIndex = 22;
+			this.pictureBox2.TabStop = false;
+			// 
 			// ILangForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(967, 594);
+			this.ClientSize = new System.Drawing.Size(958, 614);
 			this.Controls.Add(this.MetadataBox);
 			this.Controls.Add(this.KnlFolderSelector);
 			this.Controls.Add(this.VarsBox);
 			this.Controls.Add(this.FilteredKnlListBox);
 			this.Controls.Add(this.knlFilterText);
-			this.Controls.Add(this.KnlEditor);
 			this.Controls.Add(this.menuStrip1);
 			this.Controls.Add(this.KnlFileList);
+			this.Controls.Add(this.KnlEditor);
+			this.Controls.Add(this.pictureBox2);
 			this.Controls.Add(this.ILangWebBrowser);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MainMenuStrip = this.menuStrip1;
@@ -594,14 +617,18 @@ namespace ILang2._
 			this.Load += new System.EventHandler(this.ILangFormLoad);
 			this.KnlEditor.ResumeLayout(false);
 			this.KnlEditor.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
 			this.menuStrip1.ResumeLayout(false);
 			this.menuStrip1.PerformLayout();
 			this.VarsBox.ResumeLayout(false);
 			this.MetadataBox.ResumeLayout(false);
 			this.MetadataBox.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 		}
+		private System.Windows.Forms.PictureBox pictureBox2;
+		private System.Windows.Forms.PictureBox pictureBox1;
 		private System.Windows.Forms.ToolStripMenuItem insertBase64ImageToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem transpileToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem createNewToolStripMenuItem;

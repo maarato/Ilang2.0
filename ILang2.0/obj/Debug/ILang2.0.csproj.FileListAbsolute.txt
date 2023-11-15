@@ -38,3 +38,13 @@ C:\Users\maara\OneDrive\Escritorio\GIT MIOS\Ilang2.0\ILang2.0\obj\Debug\ILang2._
 C:\Users\maara\OneDrive\Escritorio\GIT MIOS\Ilang2.0\ILang2.0\obj\Debug\ILang2.0.csproj.GenerateResource.Cache
 C:\Users\maara\OneDrive\Escritorio\GIT MIOS\Ilang2.0\ILang2.0\obj\Debug\ILang2.0.exe
 C:\Users\maara\OneDrive\Escritorio\GIT MIOS\Ilang2.0\ILang2.0\obj\Debug\ILang2.0.pdb
+C:\Users\Usuario\OneDrive\Documentos\Github\Ilang2.0\ILang2.0\bin\Debug\ILang2.0.exe.config
+C:\Users\Usuario\OneDrive\Documentos\Github\Ilang2.0\ILang2.0\bin\Debug\ILang2.0.exe
+C:\Users\Usuario\OneDrive\Documentos\Github\Ilang2.0\ILang2.0\bin\Debug\ILang2.0.pdb
+C:\Users\Usuario\OneDrive\Documentos\Github\Ilang2.0\ILang2.0\obj\Debug\ILang2.0.csprojResolveAssemblyReference.cache
+C:\Users\Usuario\OneDrive\Documentos\Github\Ilang2.0\ILang2.0\obj\Debug\ILang2._.ILangForm.resources
+C:\Users\Usuario\OneDrive\Documentos\Github\Ilang2.0\ILang2.0\obj\Debug\ILang2._.MainForm.resources
+C:\Users\Usuario\OneDrive\Documentos\Github\Ilang2.0\ILang2.0\obj\Debug\ILang2._.SubjugatorCore.resources
+C:\Users\Usuario\OneDrive\Documentos\Github\Ilang2.0\ILang2.0\obj\Debug\ILang2.0.csproj.GenerateResource.Cache
+C:\Users\Usuario\OneDrive\Documentos\Github\Ilang2.0\ILang2.0\obj\Debug\ILang2.0.exe
+C:\Users\Usuario\OneDrive\Documentos\Github\Ilang2.0\ILang2.0\obj\Debug\ILang2.0.pdb
